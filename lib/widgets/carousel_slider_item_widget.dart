@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seeri/common/colors_common.dart';
 
 class CarouselSliderItemWidget extends StatelessWidget {
   final String imagePath;
@@ -14,12 +15,13 @@ class CarouselSliderItemWidget extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage(imagePath)
-          )
-        ),
+        color: SeeriColors.grey,
+        borderRadius: const BorderRadius.all(Radius.circular(12.0)),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: NetworkImage(imagePath)
+        )
+      ),
     );
   }
 }

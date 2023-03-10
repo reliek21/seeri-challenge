@@ -10,14 +10,14 @@ import 'package:seeri/widgets/circular_progress_widget.dart';
 import 'package:seeri/widgets/filter_widget.dart';
 import 'package:seeri/widgets/movie_card_widget.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
   late List<Movie> _popularMovies = [];
   late List<Movie> _topRatedMovies = [];
   late List<Genre> _genres = [];

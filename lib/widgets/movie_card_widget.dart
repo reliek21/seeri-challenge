@@ -3,37 +3,62 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:seeri/common/colors_common.dart';
 
-class MovieCardWidget extends StatelessWidget {
+// ignore: must_be_immutable
+class MovieCardWidget extends StatefulWidget {
   final List<dynamic> itemList;
-  final bool? disabled;
+  late bool disabled;
 
-  const MovieCardWidget({
+  MovieCardWidget({
     required this.itemList,
-    this.disabled,
+    this.disabled  = false,
     super.key
   });
 
+  @override
+  State<MovieCardWidget> createState() => _MovieCardWidgetState();
+}
+
+class _MovieCardWidgetState extends State<MovieCardWidget> {
   @override
   Widget build(BuildContext context) {
     Widget movieCard(int index) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 180.0,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage('https://image.tmdb.org/t/p/w500/${itemList[index].poster_path}')
-              )
-            ),
+          Stack(
+            alignment: Alignment.topRight,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 180.0,
+                decoration: BoxDecoration(
+                  color: SeeriColors.grey,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage('https://image.tmdb.org/t/p/w500/${widget.itemList[index].poster_path}')
+                  )
+                ),
       
+              ),
+              // Todo: this should be in another part
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    widget.disabled = !widget.disabled;
+                  });
+                },
+                icon: Icon(
+                  widget.disabled ? Icons.favorite_border : Icons.favorite
+                ),
+                color: widget.disabled ? SeeriColors.white : SeeriColors.red,
+                iconSize: 25.0,
+              )
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(top: 9.0, bottom: 5.0),
             child: Text(
-              itemList[index].title,
+              widget.itemList[index].title,
               style: const TextStyle(
                 color: SeeriColors.white,
                 fontFamily: 'Inter',
@@ -53,7 +78,7 @@ class MovieCardWidget extends StatelessWidget {
                 minRating: 1,
                 itemCount: 5,
                 allowHalfRating: true,
-                initialRating: itemList[index].vote_average / 2,
+                initialRating: widget.itemList[index].vote_average / 2,
                 itemPadding: const EdgeInsets.symmetric(horizontal: 5.21),
                 itemBuilder: (context, _) => const Icon(
                   Icons.star,
@@ -68,7 +93,7 @@ class MovieCardWidget extends StatelessWidget {
                 },
               ),
               Text(
-                '${itemList[index].vote_average}',
+                '${widget.itemList[index].vote_average}',
                 style: const TextStyle(
                   color: SeeriColors.yellow,
                   fontFamily: 'Inter',
@@ -91,7 +116,7 @@ class MovieCardWidget extends StatelessWidget {
         childAspectRatio: 1,
         crossAxisSpacing: 36.0,
       ),
-      itemCount: itemList.length,
+      itemCount: widget.itemList.length,
       itemBuilder: (context, index) => movieCard(index)
     );
   }
