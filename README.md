@@ -1,4 +1,4 @@
-# seeri
+# Seeri
 
 A new Flutter project.
 
