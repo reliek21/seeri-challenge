@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names, duplicate_ignore
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'genre_model.g.dart';

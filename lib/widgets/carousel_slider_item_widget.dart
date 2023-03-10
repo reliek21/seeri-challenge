@@ -12,7 +12,7 @@ class CarouselSliderItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.symmetric(horizontal: 12.0),
+      margin: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
           image: DecorationImage(

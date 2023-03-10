@@ -19,4 +19,17 @@ class MovieService {
       throw Exception('Failed to load popular movies');
     }
   }
+
+  Future<List<Movie>> getTopratedMovies() async {
+    final response = await http.get(Uri.parse('$_baseUrl/movie/top_rated?api_key=$_apiKey'));
+  
+    if(response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      final movieData = jsonData['results'] as List;
+      
+      return movieData.map((movieData) => Movie.fromJson(movieData)).toList();
+    } else {
+      throw Exception('Failed to load popular movies');
+    }
+  }
 }
