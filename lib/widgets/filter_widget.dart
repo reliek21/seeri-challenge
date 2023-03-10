@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:seeri/widgets/chip_filter_widget.dart';
 
 class FilterWidget extends StatelessWidget {
-  const FilterWidget({super.key});
+  final List<dynamic> itemList;
+
+  const FilterWidget({
+    required this.itemList,
+    super.key
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 38.0,
-      width: 143.0,
-      decoration: const BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.all(Radius.circular(10.0))
-      ),
-      child: const Center(
-        child: Text(
-          'Acción',
-          style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w700),
-        )
-      ),
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: itemList.length,
+      itemBuilder: (BuildContext context, int index) {        
+        return Padding(
+          padding: const EdgeInsets.only(left: 22.0),
+          child: ChipFilterWidget(name: itemList[index].name),
+        );
+      },
     );
   }
 }

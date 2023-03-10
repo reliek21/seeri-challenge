@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
+import 'package:seeri/models/genre_model.dart';
 import 'package:seeri/models/movie_model.dart';
+import 'package:seeri/services/genre_service.dart';
 import 'package:seeri/services/movies_service.dart';
 import 'package:seeri/widgets/carousel_slider_widget.dart';
 import 'package:seeri/widgets/circular_progress_widget.dart';
@@ -17,7 +19,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late List<Movie> _movies = [];
+  late List<Genre> _genres = [];
+  
   final MovieService _movieService = MovieService();
+
   
   @override
   void initState() {
@@ -32,10 +37,50 @@ class _HomeState extends State<Home> {
         print(error);
       }
     });
+
+    _loadGenres();
+  }
+
+  Future<void> _loadGenres() async {
+    final service = GenreService();
+    final List<Genre> genres = await service.getGenres();
+
+    service.getGenres().then((genre) {
+      setState(() {
+        _genres = genres;
+        
+      });
+    }).catchError((error) {
+      if(kDebugMode) {
+        print(error);
+      }
+    });    
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> nonSliverWidget = [
+      Column(
+        children: [
+          (_movies.isEmpty)
+            ? const CircularProgressWidget()
+            : Container(
+              margin: const EdgeInsets.only(top: 24.0, bottom: 45.0), 
+              child: CarouselSliderWidget(itemList: _movies)
+            ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 38.0,
+            child: FilterWidget(itemList: _genres)
+          ),
+          MovieCardWidget(
+            itemList: _movies
+          )
+        ],
+      ),
+    ];
+
+
     return Scaffold(
       // Todo: ThemeData
       backgroundColor: SeeriColors.black1,
@@ -53,32 +98,10 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: SingleChildScrollView(
-        physics: const PageScrollPhysics(),
         child: Column(
-          children: [
-            (_movies.isEmpty)
-              ? const CircularProgressWidget()
-              : Container(
-                margin: const EdgeInsets.only(top: 24.0, bottom: 45.0), 
-                child: CarouselSliderWidget(itemList: _movies)
-              ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 38.0,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return const FilterWidget();
-                },
-              ),
-            ),
-            MovieCardWidget(
-              itemList: _movies
-            )
-          ],
+          children: nonSliverWidget,
         ),
-      ),
+      )
     );
   }
 }

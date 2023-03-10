@@ -1,0 +1,19 @@
+// ignore_for_file: non_constant_identifier_names, duplicate_ignore
+
+import 'package:json_annotation/json_annotation.dart';
+
+part 'genre_model.g.dart';
+
+@JsonSerializable()
+class Genre {
+  final int id;
+  final String name;
+
+  Genre({
+    required this.id,
+    required this.name,
+  });
+
+  factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
+  Map<String, dynamic> toJson() => _$GenreToJson(this);
+}
