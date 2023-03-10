@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
@@ -23,6 +22,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+
     _movieService.getPopularMovies().then((movies) {
       setState(() {
         _movies = movies;
@@ -32,7 +32,6 @@ class _HomeState extends State<Home> {
         print(error);
       }
     });
-    
   }
 
   @override
@@ -59,10 +58,7 @@ class _HomeState extends State<Home> {
             ? const CircularProgressWidget()
             : Container(
               margin: const EdgeInsets.only(top: 24.0, bottom: 45.0), 
-              child: CarouselSliderWidget(
-                itemCount: _movies.length,
-                itemList: _movies,
-              )
+              child: CarouselSliderWidget(itemList: _movies)
             ),
           SizedBox(
             width: MediaQuery.of(context).size.width,

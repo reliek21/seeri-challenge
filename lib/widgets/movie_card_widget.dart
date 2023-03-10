@@ -20,7 +20,7 @@ class MovieCardWidget extends StatelessWidget {
             alignment: AlignmentDirectional.topEnd,
             children: [
               Container(
-                width: 146.0,
+                width: MediaQuery.of(context).size.width,
                 height: 180.0,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
