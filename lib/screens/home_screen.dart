@@ -1,11 +1,39 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
+import 'package:seeri/models/movie_model.dart';
+import 'package:seeri/services/movie_service.dart';
 import 'package:seeri/widgets/carousel_slider_widget.dart';
+import 'package:seeri/widgets/circular_progress_widget.dart';
 import 'package:seeri/widgets/filter_widget.dart';
 import 'package:seeri/widgets/movie_card_widget.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  late List<Movie> _movies = [];
+  final MovieService _movieService = MovieService();
+  
+  @override
+  void initState() {
+    super.initState();
+    _movieService.getPopularMovies().then((movies) {
+      setState(() {
+        _movies = movies;
+      });
+    }).catchError((error) {
+      if (kDebugMode) {
+        print(error);
+      }
+    });
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,19 +55,24 @@ class Home extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(margin: const EdgeInsets.only(top: 24.0, bottom: 45.0), child: const CarouselSliderWidget()),
+          (_movies.isEmpty)
+            ? const CircularProgressWidget()
+            : Container(
+              margin: const EdgeInsets.only(top: 24.0, bottom: 45.0), 
+              child: CarouselSliderWidget(
+                itemCount: _movies.length,
+                itemList: _movies,
+              )
+            ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 38.0,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return const FilterWidget();
-                },
-              ),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return const FilterWidget();
+              },
             ),
           ),
           const MovieCardWidget()
