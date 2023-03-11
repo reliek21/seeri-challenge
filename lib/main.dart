@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
-import 'package:seeri/screens/home_screen.dart';
+import 'package:seeri/routes/main_routes.dart';
 
 void main() => runApp(const MyApp());
 
@@ -12,7 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primaryColor: SeeriColors.black1),
       title: 'Seeri Movies',
-      home: const HomeScreen()
+      initialRoute: MainRoutes.home,
+      routes: movieRoutes(),
     );
   }
 }
