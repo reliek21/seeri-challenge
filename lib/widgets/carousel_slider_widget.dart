@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:seeri/widgets/carousel_slider_item_widget.dart';
 
+/// Carousel to show images of now playing movies
 class CarouselSliderWidget extends StatelessWidget {
   final List<dynamic> itemList;
 
   const CarouselSliderWidget({
     required this.itemList,
-    super.key
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

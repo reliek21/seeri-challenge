@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
+import 'package:seeri/common/text_styles_common.dart';
 
 // ignore: must_be_immutable
 class ChipFilterWidget extends StatefulWidget {
   final String name;
-  late bool disabled;
+  late bool isEnabled;
   
   ChipFilterWidget({
     required this.name,
-    this.disabled = true,
-    super.key
-  });
+    this.isEnabled = true,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ChipFilterWidget> createState() => _ChipFilterWidgetState();
@@ -22,25 +23,20 @@ class _ChipFilterWidgetState extends State<ChipFilterWidget> {
     return InkWell(
       onTap: () => {
         setState(() {
-          widget.disabled = !widget.disabled;
+          widget.isEnabled = !widget.isEnabled;
         })
       },
       child: Container(
         height: 38.0,
         width: 143.0,
         decoration: BoxDecoration(
-          color: widget.disabled ? SeeriColors.black2 : SeeriColors.blue,
+          color: widget.isEnabled ? SeeriColors.black2 : SeeriColors.blue,
           borderRadius: const BorderRadius.all(Radius.circular(10.0))
         ),
         child: Center(
-            child: Text(
-          widget.name,
-          style: const TextStyle(
-            color: SeeriColors.white,
-            fontFamily: 'Inter',
-            fontSize: 16.0,
-            fontWeight: FontWeight.w700,
-          ),
+          child: Text(
+            widget.name,
+            style: SeeriTextStyles().subHeadingTextStyle()
         )),
       ),
     );

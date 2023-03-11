@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
 
+/// A widget to show an element in the carousel with image
 class CarouselSliderItemWidget extends StatelessWidget {
   final String imagePath;
 
   const CarouselSliderItemWidget({
     required this.imagePath,
-    super.key
-  });
+    Key? key
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {

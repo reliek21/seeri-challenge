@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:seeri/common/colors_common.dart';
 import 'package:seeri/models/genre_model.dart';
 import 'package:seeri/models/movie_model.dart';
 import 'package:seeri/services/genre_service.dart';
 import 'package:seeri/services/movies_service.dart';
+import 'package:seeri/widgets/appbar_widget.dart';
 import 'package:seeri/widgets/carousel_slider_widget.dart';
 import 'package:seeri/widgets/circular_progress_widget.dart';
 import 'package:seeri/widgets/filter_widget.dart';
-import 'package:seeri/widgets/movie_card_widget.dart';
+import 'package:seeri/widgets/grid_movie_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,46 +18,30 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late List<Movie> _popularMovies = [];
-  late List<Movie> _topRatedMovies = [];
-  late List<Genre> _genres = [];
+  late List<Movie> _nowPlayingMovies = [];
+  late List<Genre> _movieGenres = [];
 
-  final MovieService _movieService = MovieService();
-
-  @override
-  void initState() {
-    super.initState();
-
-    _movieService.getPopularMovies().then((movies) {
+  Future<void> _loadMovies() async {
+    final MovieService movieService = MovieService();
+    
+    movieService.getNowPlayingMovies().then((movies) {
       setState(() {
-        _popularMovies = movies;
+        _nowPlayingMovies = movies;
       });
     }).catchError((error) {
       if (kDebugMode) {
         print(error);
       }
     });
-
-    _movieService.getTopratedMovies().then((movies) {
-      setState(() {
-        _topRatedMovies = movies;
-      });
-    }).catchError((error) {
-      if (kDebugMode) {
-        print(error);
-      }
-    });
-
-    _loadGenres();
   }
 
   Future<void> _loadGenres() async {
-    final service = GenreService();
+    final GenreService service = GenreService();
     final List<Genre> genres = await service.getGenres();
 
     service.getGenres().then((genre) {
       setState(() {
-        _genres = genres;
+        _movieGenres = genres;
       });
     }).catchError((error) {
       if (kDebugMode) {
@@ -65,69 +49,49 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
   }
+  
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMovies();
+    _loadGenres();
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> widgets = [
-      if (_popularMovies.isEmpty)
+    List<Widget> widgets = <Widget>[
+      if (_nowPlayingMovies.isEmpty)
         const CircularProgressWidget()
       else Container(
         margin: const EdgeInsets.only(top: 24.0, bottom: 45.0),
-        child: CarouselSliderWidget(itemList: _popularMovies)
+        child: CarouselSliderWidget(itemList: _nowPlayingMovies)
       ),
 
       SizedBox(
         width: MediaQuery.of(context).size.width,
         height: 38.0,
-        child: FilterWidget(itemList: _genres)
+        child: FilterWidget(itemList: _movieGenres)
       ),
 
-      if(_topRatedMovies.isEmpty)
+      if(_nowPlayingMovies.isEmpty)
         const CircularProgressWidget()
       else
         Expanded(
           child: Container(
             padding:
-                const EdgeInsets.symmetric(vertical: 31.0, horizontal: 10.0),
+                const EdgeInsets.symmetric(vertical: 33.0, horizontal: 22.0),
             width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height,
-            child: MovieCardWidget(itemList: _topRatedMovies)
+            child: GridMovie(itemList: _nowPlayingMovies)
           ),
         ),
     ];
 
-    AppBar appBar() {
-      return AppBar(
-        // Todo: ThemeData
-        backgroundColor: SeeriColors.black1,
-        shadowColor: SeeriColors.transparent,
-        title: const Text('Seeri-Movie',
-          // Todo: move to TextStyles common
-          style: TextStyle(
-            color: SeeriColors.white,
-            fontFamily: 'Inter',
-            fontSize: 26.0,
-            fontWeight: FontWeight.w600
-          )
-        ),
-        actions: const [
-          Icon(
-            Icons.account_circle,
-            color: SeeriColors.white,
-            size: 28.33
-          ),
-          Padding(padding: EdgeInsets.only(right: 15.0))
-        ],
-      );
-    }
-
     return Scaffold(
-      // Todo: ThemeData
-      backgroundColor: SeeriColors.black1,
-      appBar: appBar(),
+      backgroundColor: Theme.of(context).primaryColor,
+      appBar: const AppBarWidget(title: 'Seeri-Movie'),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
-        // height: MediaQuery.of(context).size.height,
         child: Column(children: widgets),
       )
     );

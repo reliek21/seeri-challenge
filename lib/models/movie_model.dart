@@ -8,13 +8,13 @@ part 'movie_model.g.dart';
 class Movie {
   final int id;
   final String title;
-  final String poster_path;
+  final String? poster_path;
   final double vote_average;
 
   Movie({
     required this.id,
     required this.title,
-    required this.poster_path,
+    this.poster_path,
     required this.vote_average,
   });
 

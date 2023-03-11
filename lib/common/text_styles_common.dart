@@ -1,13 +1,10 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
-
 
 const String fontFamily = 'Inter';
 
 class SeeriTextStyles {
-  SeeriTextStyles._();
-
-  TextStyle heading({
+  TextStyle largeHeadingTextStyle({
     Color color = SeeriColors.white,
     FontWeight fontWeight = FontWeight.w600,
   }) => TextStyle(
@@ -17,7 +14,7 @@ class SeeriTextStyles {
     fontSize: 26.0,
   );
 
-  TextStyle subTitle({
+  TextStyle subHeadingTextStyle({
     Color color = SeeriColors.white,
     FontWeight fontWeight = FontWeight.w700,
   }) => TextStyle(
@@ -27,7 +24,7 @@ class SeeriTextStyles {
     fontSize: 16.0,
   );
 
-  TextStyle paragraph({
+  TextStyle smallBodyTextStyle({
     Color color = SeeriColors.white,
     FontWeight fontWeight = FontWeight.w500,
   }) => TextStyle(

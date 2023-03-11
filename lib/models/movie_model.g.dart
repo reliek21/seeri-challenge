@@ -9,7 +9,7 @@ part of 'movie_model.dart';
 Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
       id: json['id'] as int,
       title: json['title'] as String,
-      poster_path: json['poster_path'] as String,
+      poster_path: json['poster_path'] as String?,
       vote_average: (json['vote_average'] as num).toDouble(),
     );
 
