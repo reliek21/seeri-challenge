@@ -1,30 +1,70 @@
 import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
+import 'package:seeri/common/text_styles_common.dart';
+import 'package:seeri/models/movie_model.dart';
 
 class MovieScreen extends StatelessWidget {
   const MovieScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments as Movie?;
+
+    Widget arrowBackIcon() {
+      return Padding(
+        padding: const EdgeInsets.only(left: 25.0),
+        child: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: SeeriColors.white,
+            size: 24.0,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      );
+    }
+
+    Widget posterPath() {
+      return FlexibleSpaceBar(
+        background: Image(
+          fit: BoxFit.cover,
+          image: NetworkImage('https://image.tmdb.org/t/p/w500/${args?.poster_path}'),
+        ),
+      );
+    }
+
+    Widget movieGender() {
+      return Container(
+        width: 66.0,
+        height: 26.0,
+        margin: const EdgeInsets.only(right: 14.0),
+        decoration: const BoxDecoration(
+          color: SeeriColors.black2,
+          borderRadius: BorderRadius.all(Radius.circular(6.0))
+        ),
+        child: Center(
+          child: Text(
+            '${args?.genres}',
+            style: SeeriTextStyles().smallBodyTextStyle(
+              fontWeight: FontWeight.w600
+            )
+          ),
+        ),
+      );
+    }
+    
     return Scaffold(
       body: CustomScrollView(
       slivers: [
-        const SliverAppBar(
-          expandedHeight: 240.0,
-          flexibleSpace: FlexibleSpaceBar(
-            background: Image(
-              fit: BoxFit.cover,
-              image: NetworkImage('https://picsum.photos/seed/picsum/200/300'),
-            ),
-          ),
-          title: Icon(
-            Icons.arrow_back_ios,
-            size: 20.0,
-            color: SeeriColors.white,
-          ),
+        SliverAppBar(
+          expandedHeight: 242.0,
+          flexibleSpace: posterPath(),
+          leading: arrowBackIcon()
         ),
         SliverToBoxAdapter(
           child: Container(
+            padding:
+                const EdgeInsets.symmetric(vertical: 12.0, horizontal: 18.0),
             height: MediaQuery.of(context).size.height,
             color: SeeriColors.black1,
             child: Column(
@@ -32,26 +72,7 @@ class MovieScreen extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Container(
-                      width: 66.0,
-                      height: 26.0,
-                      margin: const EdgeInsets.only(right: 14.0),
-                      decoration: const BoxDecoration(
-                        color: SeeriColors.black2,
-                        borderRadius: BorderRadius.all(Radius.circular(6.0))
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Terror',
-                          style: TextStyle(
-                            color: SeeriColors.white,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14.0
-                          ),
-                        ),
-                      ),
-                    ),
+                    movieGender(),
                     Container(
                       width: 66.0,
                       height: 26.0,
@@ -84,9 +105,9 @@ class MovieScreen extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: const Text(
-                    'Knock at the Cabin',
-                    style: TextStyle(
+                  child: Text(
+                    '${args?.title}',
+                    style: const TextStyle(
                       color: SeeriColors.white,
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w600,
@@ -141,7 +162,7 @@ class MovieScreen extends StatelessWidget {
           ),
         )
       ],
-    )
+        )
     );
   }
 }

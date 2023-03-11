@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seeri/models/movie_model.dart';
+import 'package:seeri/routes/main_routes.dart';
 import 'package:seeri/widgets/movie_card_widget.dart';
 
 class GridMovie extends StatefulWidget {
@@ -25,9 +26,18 @@ class _GridMovieState extends State<GridMovie> {
         crossAxisSpacing: 36.0,
       ),
       itemCount: widget.itemList.length,
-      itemBuilder: (context, index) => MovieCardWidget(
-        itemList: widget.itemList,
-        index: index,
+      itemBuilder: (context, index) => GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            MainRoutes.movieDetail,
+            arguments: widget.itemList[index]
+          );
+        },
+        child: MovieCardWidget(
+          itemList: widget.itemList,
+          index: index,
+        ),
       )
     );
   }
