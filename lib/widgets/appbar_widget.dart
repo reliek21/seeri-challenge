@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
+import 'package:seeri/common/text_styles_common.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -17,16 +18,11 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   PreferredSizeWidget build(BuildContext context) {
     return AppBar(
-      backgroundColor: SeeriColors.black1,
+      backgroundColor: Theme.of(context).primaryColor,
       shadowColor: SeeriColors.transparent,
       title: Text(
         title,
-        style: const TextStyle(
-          color: SeeriColors.white,
-          fontFamily: 'Inter',
-          fontSize: 26.0,
-          fontWeight: FontWeight.w600
-        )
+        style: SeeriTextStyles().largeHeadingTextStyle()
       ),
       actions: [
         Icon(
