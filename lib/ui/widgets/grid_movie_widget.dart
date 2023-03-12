@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:seeri/models/movie/movie_model.dart';
-import 'package:seeri/routes/main_routes.dart';
+import 'package:seeri/ui/routes/main_routes.dart';
 import 'package:seeri/services/movies_service.dart';
-import 'package:seeri/widgets/movie_card_widget.dart';
+import 'package:seeri/ui/widgets/movie_card_widget.dart';
 
 class GridMovie extends StatefulWidget {
   final List<Movie> itemList;

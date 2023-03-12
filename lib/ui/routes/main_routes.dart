@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:seeri/screens/home_screen.dart';
-import 'package:seeri/screens/movie_details_screen.dart';
+import 'package:seeri/ui/screens/home_screen.dart';
+import 'package:seeri/ui/screens/movie_details_screen.dart';
 
 class MainRouteParams {
   static const String movieId = 'movieId';

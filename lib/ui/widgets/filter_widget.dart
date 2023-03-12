@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seeri/widgets/chip_filter_widget.dart';
+import 'package:seeri/ui/widgets/chip_filter_widget.dart';
 
 class FilterWidget extends StatelessWidget {
   final List<dynamic> itemList;

@@ -2,15 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:seeri/models/genre/genre_model.dart';
 import 'package:seeri/models/movie/movie_model.dart';
-import 'package:seeri/routes/main_routes.dart';
+import 'package:seeri/ui/routes/main_routes.dart';
 import 'package:seeri/services/genre_service.dart';
 import 'package:seeri/services/movies_service.dart';
-import 'package:seeri/widgets/appbar_widget.dart';
-import 'package:seeri/widgets/bottom_navigation_widget.dart';
-import 'package:seeri/widgets/carousel_slider_widget.dart';
-import 'package:seeri/widgets/circular_progress_widget.dart';
-import 'package:seeri/widgets/filter_widget.dart';
-import 'package:seeri/widgets/grid_movie_widget.dart';
+import 'package:seeri/ui/widgets/appbar_widget.dart';
+import 'package:seeri/ui/widgets/bottom_navigation_widget.dart';
+import 'package:seeri/ui/widgets/carousel_slider_widget.dart';
+import 'package:seeri/ui/widgets/circular_progress_widget.dart';
+import 'package:seeri/ui/widgets/filter_widget.dart';
+import 'package:seeri/ui/widgets/grid_movie_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

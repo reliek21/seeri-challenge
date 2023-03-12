@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seeri/common/colors_common.dart';
-import 'package:seeri/routes/main_routes.dart';
+import 'package:seeri/ui/routes/main_routes.dart';
 
 void main() => runApp(const MyApp());
 

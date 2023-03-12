@@ -3,7 +3,7 @@ import 'package:seeri/common/colors_common.dart';
 import 'package:seeri/common/text_styles_common.dart';
 import 'package:seeri/models/movie/movie_model.dart';
 import 'package:seeri/utils/urls_utils.dart';
-import 'package:seeri/widgets/favorite_bottom_widget.dart';
+import 'package:seeri/ui/widgets/favorite_bottom_widget.dart';
 
 // ignore: must_be_immutable
 class MovieCardWidget extends StatefulWidget {
