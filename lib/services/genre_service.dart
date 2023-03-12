@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:seeri/models/genre_model.dart';
+import 'package:seeri/models/genre/genre_model.dart';
 
 class GenreService {
   // Todo: pass to enviroments

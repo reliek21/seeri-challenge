@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:seeri/models/genre_model.dart';
-import 'package:seeri/models/movie_model.dart';
+import 'package:seeri/models/genre/genre_model.dart';
+import 'package:seeri/models/movie/movie_model.dart';
 import 'package:seeri/services/genre_service.dart';
 import 'package:seeri/services/movies_service.dart';
 import 'package:seeri/widgets/appbar_widget.dart';

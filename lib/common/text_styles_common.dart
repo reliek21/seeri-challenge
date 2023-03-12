@@ -7,11 +7,12 @@ class SeeriTextStyles {
   TextStyle largeHeadingTextStyle({
     Color color = SeeriColors.white,
     FontWeight fontWeight = FontWeight.w600,
+    double fontSize = 26.0,
   }) => TextStyle(
     color: color,
     fontFamily: fontFamily,
     fontWeight: fontWeight,
-    fontSize: 26.0,
+    fontSize: fontSize,
   );
 
   TextStyle subHeadingTextStyle({

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seeri/models/movie_model.dart';
+import 'package:seeri/models/movie/movie_model.dart';
 import 'package:seeri/routes/main_routes.dart';
 import 'package:seeri/widgets/movie_card_widget.dart';
 

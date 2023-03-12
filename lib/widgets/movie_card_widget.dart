@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:seeri/common/colors_common.dart';
 import 'package:seeri/common/text_styles_common.dart';
-import 'package:seeri/models/movie_model.dart';
+import 'package:seeri/models/movie/movie_model.dart';
 
 // ignore: must_be_immutable
 class MovieCardWidget extends StatefulWidget {

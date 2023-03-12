@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:seeri/models/movie_model.dart';
+import 'package:seeri/models/movie/movie_model.dart';
 
 class MovieService {
   // Todo: pass to enviroments
