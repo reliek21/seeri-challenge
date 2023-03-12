@@ -46,7 +46,9 @@ class _MovieCardWidgetState extends State<MovieCardWidget> {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                    'https://image.tmdb.org/t/p/w500/${movie.poster_path}'
+                    (movie.poster_path != null)
+                      ? 'https://image.tmdb.org/t/p/w500/${movie.poster_path}'
+                      : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
                 )
               )
             ),

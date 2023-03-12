@@ -68,9 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: CarouselSliderWidget(itemList: _nowPlayingMovies)
       ),
 
-      SizedBox(
-        width: MediaQuery.of(context).size.width,
+      if(_movieGenres.isEmpty)
+        Container()
+      else SizedBox(
         height: 38.0,
+        width: MediaQuery.of(context).size.width,
         child: FilterWidget(itemList: _movieGenres)
       ),
 
@@ -79,20 +81,31 @@ class _HomeScreenState extends State<HomeScreen> {
       else
         Expanded(
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: 33.0, horizontal: 22.0),
+            padding: const EdgeInsets.symmetric(vertical: 33.0, horizontal: 22.0),
             width: MediaQuery.of(context).size.width,
             child: GridMovie(itemList: _nowPlayingMovies)
           ),
         ),
     ];
 
+    // return Scaffold(
+    //   backgroundColor: Theme.of(context).primaryColor,
+    //   appBar: const AppBarWidget(title: 'Seeri-Movie'),
+    //   body: SizedBox(
+    //     width: MediaQuery.of(context).size.width,
+    //     child: Column(children: widgets),
+    //   )
+    // );
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: const AppBarWidget(title: 'Seeri-Movie'),
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Column(children: widgets),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(children: widgets),
+        ),
       )
     );
   }

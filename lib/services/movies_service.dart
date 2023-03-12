@@ -7,8 +7,8 @@ class MovieService {
   final String _baseUrl = 'https://api.themoviedb.org/3';
   final String _apiKey = '0291d74c9f324c03b831f5098647acbf';
 
-  Future<List<Movie>> getNowPlayingMovies() async {
-    final response = await http.get(Uri.parse('$_baseUrl/movie/now_playing?api_key=$_apiKey'));
+  Future<List<Movie>> getNowPlayingMovies({int? page = 1}) async {
+    final response = await http.get(Uri.parse('$_baseUrl/movie/now_playing?api_key=$_apiKey&page=${page.toString()}'));
   
     if(response.statusCode == 200) {
       final jsonData = json.decode(response.body);
