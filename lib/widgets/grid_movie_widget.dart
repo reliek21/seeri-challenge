@@ -8,6 +8,7 @@ import 'package:seeri/widgets/movie_card_widget.dart';
 class GridMovie extends StatefulWidget {
   final List<Movie> itemList;
 
+  // ignore: use_key_in_widget_constructors
   const GridMovie({
     required this.itemList,
   });
@@ -94,18 +95,8 @@ class _GridMovieState extends State<GridMovie> {
         itemCount: nowPlayingMovies.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                MainRoutes.movieDetail,
-                arguments: nowPlayingMovies[index],
-              );
-            },
-            child: MovieCardWidget(
-              itemList: nowPlayingMovies,
-              index: index,
-            ),
-            
+            onTap: () => Navigator.pushNamed(context, MainRoutes.movieDetail, arguments: nowPlayingMovies[index]),
+            child: MovieCardWidget(itemList: nowPlayingMovies, index: index),
           );
         }
       

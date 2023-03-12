@@ -1,9 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:seeri/common/colors_common.dart';
 import 'package:seeri/common/text_styles_common.dart';
 import 'package:seeri/models/movie/movie_model.dart';
+import 'package:seeri/utils/urls_utils.dart';
+import 'package:seeri/widgets/favorite_bottom_widget.dart';
 
 // ignore: must_be_immutable
 class MovieCardWidget extends StatefulWidget {
@@ -47,19 +47,16 @@ class _MovieCardWidgetState extends State<MovieCardWidget> {
                   fit: BoxFit.cover,
                   image: NetworkImage(
                     (movie.poster_path != null)
-                      ? 'https://image.tmdb.org/t/p/w500/${movie.poster_path}'
-                      : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'
+                      ? SeeriUrls.getImagePath(imagePath: movie.poster_path)
+                      : SeeriUrls.noImageUrl
                 )
               )
             ),
           ),
-          IconButton(
-            splashColor: SeeriColors.transparent,
-            onPressed: () => toggleFavorite(),
-            icon: Icon(
-                widget.isEnabled ? Icons.favorite : Icons.favorite_border),
+          FavoriteBottomWidget(
             color: widget.isEnabled ? SeeriColors.red : SeeriColors.white,
-            iconSize: 25.0,
+            icon: Icon(widget.isEnabled ? Icons.favorite : Icons.favorite_border),
+            onPress: toggleFavorite
           )
         ],
       );
@@ -77,43 +74,12 @@ class _MovieCardWidgetState extends State<MovieCardWidget> {
       );
     }
 
-    Widget movieScore() {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          RatingBar.builder(
-            ignoreGestures: true,
-            direction: Axis.horizontal,
-            minRating: 1,
-            itemCount: 5,
-            allowHalfRating: true,
-            initialRating: movie.vote_average / 2,
-            itemPadding: const EdgeInsets.symmetric(horizontal: 5.21),
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: SeeriColors.yellow,
-            ),
-            itemSize: 15.0,
-            unratedColor: SeeriColors.grey,
-            onRatingUpdate: (rating) {
-              if (kDebugMode) {
-                print(rating);
-              }
-            },
-          ),
-          Text('${movie.vote_average}',
-              style: SeeriTextStyles()
-                  .smallBodyTextStyle(color: SeeriColors.yellow))
-        ],
-      );
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         movieImage(),
         movieTitle(),
-        movieScore()
+        
       ],
     );
   }

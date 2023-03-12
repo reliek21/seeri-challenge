@@ -31,7 +31,6 @@ class ButtonNavigationWidget extends StatelessWidget {
         for (int i = 0; i <= items.length; i++) {
           if (index == i) {
             if(index == i) return;
-            
             Navigator.pushNamed(context, itemRoutes[i]);
           }
         }

@@ -22,9 +22,7 @@ class _ChipFilterWidgetState extends State<ChipFilterWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => {
-        setState(() {
-          widget.isEnabled = !widget.isEnabled;
-        })
+        setState(() =>  widget.isEnabled = !widget.isEnabled)
       },
       child: Container(
         height: 38.0,
@@ -33,11 +31,7 @@ class _ChipFilterWidgetState extends State<ChipFilterWidget> {
           color: widget.isEnabled ? SeeriColors.black2 : SeeriColors.blue,
           borderRadius: const BorderRadius.all(Radius.circular(10.0))
         ),
-        child: Center(
-          child: Text(
-            widget.name,
-            style: SeeriTextStyles().subHeadingTextStyle()
-        )),
+        child: Center(child: Text(widget.name, style: SeeriTextStyles().subHeadingTextStyle())),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:seeri/common/text_styles_common.dart';
 import 'package:seeri/models/author/reviews_model.dart';
 import 'package:seeri/models/movie/movie_model.dart';
 import 'package:seeri/services/reviews_service.dart';
+import 'package:seeri/utils/urls_utils.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
   const MovieDetailsScreen({super.key});
@@ -53,7 +54,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       return FlexibleSpaceBar(
         background: Image(
           fit: BoxFit.cover,
-          image: NetworkImage('https://image.tmdb.org/t/p/w500/${args.poster_path}'),
+          image: NetworkImage(SeeriUrls.getImagePath(imagePath: args.poster_path ?? SeeriUrls.noImageUrl)),
         ),
       );
     }

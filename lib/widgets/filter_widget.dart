@@ -15,8 +15,7 @@ class FilterWidget extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: itemList.length,
       itemBuilder: (BuildContext context, int index) {        
-        return Padding(
-          padding: const EdgeInsets.only(left: 22.0),
+        return Padding(padding: const EdgeInsets.only(left: 22.0),
           child: ChipFilterWidget(name: itemList[index].name),
         );
       },
